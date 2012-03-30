@@ -1,0 +1,62 @@
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li>首页</li>
+</ul>
+<% end %>
+
+<% @pushes.each do |push| %>
+<div class='row'><!-- push info -->
+<div class='span1'><!-- logo -->
+<div class='benefit-icon'>
+  <%= image_tag push.user.logo.url(:small), :class => "thumbnail" %>
+</div>
+</div><!-- logo end -->
+<div class="video_arrow"></div>
+<div class='span8 video_detail'><!-- detail -->
+<div class="row"><!-- top -->
+<div class="span5">
+  <h3><font class="icon-play-circle" style="margin-top:5px;"></font> 视频：“<%= push.video.title %>”</h3>
+</div><!-- video title end-->
+<div class="span2"><!-- push btn -->
+<div class="btn-group" style="margin-left:75px;">
+<a class="btn btn-small" href="#"><i class="icon-share"></i> Push</a>
+<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="icon-pencil"></i>说点什么</a></li>
+</ul>
+</div>
+</div><!-- push btn end-->
+</div><!-- top  end -->
+<div class="row">
+<div class="span2 offset3" id="image<%= push.id %>"><!-- video image -->
+<a href="#" rel="<%= push.id %>" class="video-up"><%= image_tag push.video.image, :width => "120px", :height => "80px" %></a>
+</div><!-- video image end -->
+<div class="span4 offset2"><!-- video play -->
+<div class="hide" id="myModal<%= push.id %>">
+  <div class="header">
+    <a href="#" rel="<%= push.id %>" class="video-down"
+    ><font class="icon-arrow-up"></font>收起</a>
+  </div>
+  <div class="body">
+    <p>
+      <embed autostart="true"  wmode="transparent" src="<%= auto_play push.video.plugin %>" quality="high" flashvars="playMovie=true&auto=1" scale="NO_SCALE" bgcolor="#000000" name="FLV_player" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://get.adobe.com/cn/flashplayer/" height="300" width="420" align="middle">
+    </p>
+  </div>
+</div>
+</div><!-- video play end -->
+</div>
+<div class="row"><!-- detail footer -->
+<div class="span3">
+  标签：<a>视频</a><br/>
+  <p class="icon-comment"></p>(12)
+</div>
+<blockquote class='pull-right'>
+<% if push.content %>
+  <p><%= push.content %></p>
+<% end %>
+  <small><%= quote_small(push.user.name,push.created_at) %></small>
+</blockquote>
+</div>
+</div><!-- detail end -->
+</div>
+<% end %>

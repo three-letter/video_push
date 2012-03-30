@@ -1,0 +1,64 @@
+<% content_for :head do %>
+<%= javascript_include_tag "jquery.Jcrop.min" %>
+<script type="text/javascript" charset="utf-8">
+jQuery(function($){      
+      $('#cropbox').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [10, 10, 200, 200],
+        aspectRatio: 1,
+      });
+          });
+
+function update_crop(coords) {
+    var rx = 60/coords.w;
+      var ry = 60/coords.h;
+        $('#preview').css({
+          width: Math.round(rx * <%= @user.logo_geometry(:large).width %>) + 'px',
+          height: Math.round(ry * <%= @user.logo_geometry(:large).width %>) + 'px',
+          marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+          marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        });
+        var ratio = <%= @user.logo_geometry(:original).width %> / <%= @user.logo_geometry(:large).width %>;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+}
+</script>
+<% end %>
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+<li>上传头像</li>
+</ul>
+<% end %>
+
+<div class='row'>
+<div class='span7'>
+<div class='benefit-icon' style="float:left">
+<%= image_tag @user.logo.url(:large), :id => 'cropbox' %>
+</div>
+<div>
+<h3>从电脑中选择喜欢的照片:</h3>
+<br/>
+<%= button_to '选择', edit_user_path(@user), :class => "btn" %>
+<hr>
+<%= form_for @user do |f| %>
+  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+    <%= f.hidden_field attribute, :id => attribute %>
+  <% end %>
+  <%= f.submit '保存', :class => "btn" %>
+<% end %>
+</div>
+</div>
+<div class='span2' style="margin-top:55px;">
+这是你在网站的头像图标
+<hr>
+<div style="width:60px; height:60px; overflow:hidden">
+  <%= image_tag @user.logo.url(:large), :id => "preview" %>
+</div>
+</div>
+</div>
+<hr>
+

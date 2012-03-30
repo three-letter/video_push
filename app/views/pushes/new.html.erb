@@ -1,0 +1,45 @@
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+<li>推荐视频</li>
+</ul>
+<% end %>
+<%= form_for @push , :html => {:class => "form-horizontal"} do |f| %>
+  <fieldset>
+    <legend>
+      <% if @video && @video.id %>
+        <%= "推荐视频 - “" + @video.title + "”" %>
+      <% end %>
+    </legend>
+   <% if flash[:desc_push] %> 
+      <div class="control-group alert alert-error">
+        <a class="close" data-dismiss="alert">x</a>
+        <%= flash[:desc_push] %>
+      </div>
+    <% end %>
+    <% unless @video && @video.id %>
+      <div class="control-group">
+        <label class="control-label" for="input01">视频URL</label>
+        <div class="controls">
+          <%= f.text_field :url, :class => "input-xxlarge", :placeholder => "支持优酷 土豆 爱奇艺 搜狐视频网站的视频播放页链接" %>
+        </div> 
+      </div>
+    <% end %>
+    <div class="control-group">
+      <label class="control-label" for="input01">视频标签</label>
+      <div class="controls">
+        <%= f.text_field :tags, :class => "input-large"%>
+      </div> 
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="input01">视频描述</label>
+      <div class="controls">
+        <%= f.text_area :content, :class => "input-xlarge", :rows => 5 %>
+      </div> 
+    </div>
+    <div class="form-actions">
+      <%= submit_tag "确定", :class => "btn btn-primary" %>
+      <%= submit_tag "取消", :class => "btn" %>
+    </div>
+  </fieldset>
+<% end %>

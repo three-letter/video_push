@@ -1,0 +1,25 @@
+// Place all the styles related to the pushes controller here.
+// They will 
+.video{
+  possition: relative;
+}
+.video_arrow {
+  background: url("content.gif") no-repeat;
+  position: relative;
+  top: 32px;
+  left: 105px;
+  _left: 66px;
+  width: 13px;
+  height: 13px;
+}
+.video_detail {
+  padding: 10px;
+  margin-left: 17px;
+  width: 760px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+  border: 1px solid gainsboro;
+  overflow: hidden;
+}
+

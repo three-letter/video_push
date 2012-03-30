@@ -1,0 +1,40 @@
+<% content_for :library do %>
+  <ul class="breadcrumb">
+    <li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+    <li>注册</li>
+  </ul>
+<% end %>
+<!--用户注册信息-->
+<%= form_for @user, :html => { :multipart => true, :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend>填写用户注册信息</legend>
+
+    <div class="control-group">
+      <%= f.label :name, '用户名', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+        <%= @user.errors[:name][0].to_s %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :pwd, '密码', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :pwd, :class => 'text_field' %>
+        <%= @user.errors[:pwd][0].to_s %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :pwd_confirmation, '确认密码', :class => 'control-label' %>
+      <div class="controls">
+        <%= f.password_field :pwd_confirmation %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit '注册', :class => 'btn btn-primary' %>
+      <%= link_to '取消', users_path, :class => 'btn' %>
+    </div>
+  </fieldset>
+<% end %>

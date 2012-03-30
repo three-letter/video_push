@@ -1,0 +1,6 @@
+if($("#<%= dom_id @video %>").length==0){
+  var alert = "<div id='<%= dom_id @video %>' class='alert alert-success hide'><a class='close' data-dismiss='alert'>x</a></div>"+$("#modal-footer-<%= @video.id%>").html();
+  $("#modal-footer-<%= @video.id %>").html(alert);
+}
+$("#<%= dom_id @video %>").show();
+$("#<%= dom_id @video %>").html("<a class='close' data-dismiss='alert'>x</a><%= flash[:quick_push] %>")

@@ -1,0 +1,45 @@
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li>首页</li>
+</ul>
+<% end %>
+
+<% @pushes.each do |push| %>
+<div class="row"><!-- every push -->
+<div class="span9">
+<div class='row'><!-- push info -->
+<div class='span1'><!-- logo -->
+<div class='benefit-icon'>
+  <%= image_tag push.user.logo.url(:small), :class => "thumbnail" %>
+  <p><%= push.user.name %></p>
+</div>
+</div><!-- logo end -->
+<div class='span8'><!-- detail -->
+<div class="row"><!-- top -->
+<div class="span6">
+  <h3><%= push.video.title %></h3>
+</div><!-- video title end-->
+<div class="span2"><!-- push btn -->
+<div class="btn-group">
+<a class="btn " href="#"><i class="icon-share"></i> Push</a>
+<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="icon-pencil"></i>说点什么</a></li>
+</ul>
+</div>
+</div><!-- push btn end-->
+</div><!-- top  end -->
+<% if push.content %>
+<blockquote class='quote'>
+  <p><%= push.content %></p>
+</blockquote>
+<% end %>
+<div class="span2 offset2"><!-- video image -->
+<a href="#" class="thumbnail"><%= image_tag push.video.image, :width =>160, :height => 120 %></a>
+</div><!-- video image end -->
+</div><!-- detail end -->
+</div>
+<hr>
+</div>
+</div>
+<% end %>

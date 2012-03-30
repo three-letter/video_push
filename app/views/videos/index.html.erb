@@ -1,0 +1,42 @@
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+<li>视频</li>
+</ul>
+<% end %>
+<hr/>
+<% @videos.each_with_index do |video, index| %>
+  <% if (index==0 || index%4==0) %>
+    <div class="row">
+  <% end %>
+  <div class="span2">
+    <a href="#myModal<%= index %>" data-toggle="modal" ><img src="<%= video.image %>" class="thumbnail" width="160px" height="120px">
+    <p class="thumbnail"><%= sub_str(video.title,10) %></p>
+  </div>
+<div class="modal hide" id="myModal<%= index %>">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h4><%= video.title %></h4>
+  </div>
+  <div class="modal-body">
+    <p>
+      <embed wmode="transparent" src="<%= auto_play video.plugin %>" quality="high" scale="NO_SCALE" bgcolor="#000000" name="FLV_player" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" height="355" width="530" align="middle">
+    </p>
+  </div>
+  <div id="modal-footer-<%= video.id %>" class="modal-footer">
+    <div id="<%= dom_id video %>" class="alert alert-success hide">
+      <a class="close" data-dismiss="alert">x</a>
+      操作成功！
+    </div>
+      <a href="#" class="btn" data-dismiss="modal">关闭</a>
+      <%= form_for :push, :url => {:controller => "videos", :action => "quick_push", :id => video.id}, :remote => true do |f| %>
+        <%= f.submit 'Push', :class => 'btn btn-primary' %>
+      <% end %>
+</div>
+</div>
+  <% if (index==@videos.length-1 || (index+1)%4==0) %>
+    </div>
+  <% end %>
+<% end %>
+<hr/>
+<%= will_paginate @videos, :previous_label => '<<上一页', :next_label => '下一页>>',:class => 'pager' %>

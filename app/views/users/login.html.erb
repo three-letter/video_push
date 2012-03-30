@@ -1,0 +1,29 @@
+<%= content_for :library do %>
+  <ul class="breadcrumb">
+    <li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+    <li>登陆</li>
+  </ul>
+<% end %>
+<%= form_tag login_path, :class => 'form-horizontal' do %>
+  <fieldset>
+    <legend>登陆</legend>
+    <%= flash[:login_notice] %>
+    <div class="control-group">
+      <%= label_tag :name, '用户名', :class => 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :name, params[:name], :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= label_tag :pwd, '密码', :class => 'control-label' %>
+      <div class="controls">
+        <%= password_field_tag :pwd, params[:pwd], :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_tag '登陆', :class => 'btn btn-primary' %>
+    </div>
+  </fieldset>
+<% end %>
