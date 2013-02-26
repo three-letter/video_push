@@ -2,10 +2,11 @@
 require File.expand_path(Rails.root) + "/lib/tasks/spider/you_ku_api.rb"
 
 class PushesController < ApplicationController
-  before_filter :get_video, :only => [:new]  
+  before_filter :get_video, :authentication, :only => [:new]  
   #用于显示首页的默认10个视推信息
   def pushes
-    @pushes = Push.find(:all, :group => "video_id",
+    @pushes = Push.find(:all, :include => [:video, :user],
+                              :group => "video_id",
                               :order => "created_at desc",
                               :limit => 10)
     respond_to do |format|
@@ -29,8 +30,8 @@ class PushesController < ApplicationController
     respond_to do |format|
       if @video
         video = Video.find_by_url(@video.url)
-        diy_video = Video.where("user_id=? and video_id=?",session[:user].id,video.id)
-        if diy_video.nil?
+        has_push = Push.where("user_id=? and video_id=?",session[:user].id,video.id) if video
+        if (has_push.nil? || has_push.length==0)
           if @video.id.nil?
             if video
               video.title, video.image, video.plugin = @video.title, @video.image, @video.plugin

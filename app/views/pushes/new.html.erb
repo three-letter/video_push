@@ -28,7 +28,16 @@
     <div class="control-group">
       <label class="control-label" for="input01">视频标签</label>
       <div class="controls">
-        <%= f.text_field :tags, :class => "input-large"%>
+        <%= f.hidden_field :tags %>
+        
+         <div class="textboxlist " >
+           <ul class="textboxlist-bits">
+             <li class="textboxlist-bit textboxlist-bit-editable">
+             <input type="text" class="textboxlist-bit-editable-input" value="" style="width: 45px;display: none;">
+            </li>
+          </ul>
+        </div>
+
       </div> 
     </div>
     <div class="control-group">
@@ -43,3 +52,12 @@
     </div>
   </fieldset>
 <% end %>
+<script type="text/javascript">
+  function init_tag(){
+    var tags = '';
+    $(".textboxlist").children(".textboxlist-bits").children(".textboxlist-bit-box-deletable").each(function(){
+      tags += $(this).text() + "-";
+    });
+    $("#push_tags").val(tags); 
+  }
+</script>

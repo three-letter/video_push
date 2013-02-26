@@ -1,2 +1,24 @@
-<h1>Tags#index</h1>
-<p>Find me in app/views/tags/index.html.erb</p>
+<% content_for :library do %>
+<ul class="breadcrumb">
+<li><%= link_to '首页', root_path %> <span class="divider">/</span></li>
+<li>热门标签</li>
+</ul>
+<% end %>
+<div class="row">
+<% @tags.each do |tag| %>
+  <%= hidden_field_tag :tag, tag.name, :class => 'tags_class' %>
+<% end %>
+<div class="span8" id="tagcloudhtml">
+<embed id="tagcloud" height="450" width="700" flashvars="mode=tags&ncolor=0x336699&tspeed=100&distr=true&tagcloud=<tags></tags>" quality="high" name="tagcloud" src="http://cache.soso.com/30d/flash/tag/tagcloud.swf" bgcolor="#FFFFFF" type="application/x-shockwave-flash"  wmode="transparent"/></embed>
+</div>
+</div>
+<script type="text/javascript">
+  jQuery(function($){
+    var tags = '';
+    $(".tags_class").each(function(){
+      tags += "<a href='#'>" + $(this).val() + "</a>";
+    });
+    var new_tag = '<embed id="tagcloud" height="450" width="700" flashvars="mode=tags&ncolor=0x336699&tspeed=100&distr=true&tagcloud=<tags>' + tags + '</tags>" quality="high" name="tagcloud" src="http://cache.soso.com/30d/flash/tag/tagcloud.swf" bgcolor="#FFFFFF" type="application/x-shockwave-flash"  wmode="transparent"/></embed>';
+    $("#tagcloudhtml").html(new_tag);
+  });
+</script>

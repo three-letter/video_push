@@ -21,5 +21,19 @@ module ApplicationHelper
     end
     url
   end
+
+  #显示标签
+  def show_tag tags
+    return unless tags
+    html = '标签：'
+    tags_str = tags.split("-")
+    tags_str.each do |tag|
+      unless tag.blank?
+        html += '<a>' + tag + '</a> '
+      end
+    end
+    html = html + '<br/>'
+    html.html_safe
+  end
     
 end

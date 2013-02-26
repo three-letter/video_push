@@ -20,6 +20,7 @@
         text-align: center;  
       }
     </style>
+    <%= javascript_include_tag "jquery.min" %>
     <%= yield :head %>
     <!-- Le fav and touch icons -->
     <link href="images/favicon.ico" rel="shortcut icon">
@@ -43,7 +44,7 @@
                 <li><%= link_to "首页", root_path  %></li>
                 <li><%= link_to "视频", videos_path  %></li>
                 <li><%= link_to "推荐", "/path3"  %></li>
-                <li><%= link_to "标签", "/path4" %></li>
+                <li><%= link_to "标签", tags_path %></li>
             </ul>
             <form class="navbar-search pull-left"><input type="text" class="search-query" placeholder="Search"></form>
             <p class="navbar-text pull-right">
@@ -88,9 +89,10 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application", :except => "jquery.min" %>
     <script type="text/javascript">
       jQuery(function($){
+        var screen = 0;
         $("a.video-down").click(function(){
             var id = $(this).attr('rel');
             $("#image"+id).show();
@@ -101,6 +103,31 @@
             $("#image"+id).hide();
             $("#myModal"+id).show();
          });
+		//点击外层显示框时 主动focus标签输入框
+		$("ul.textboxlist-bits").click(function(){
+			$(".textboxlist-bit-editable-input").show();
+			$(".textboxlist-bit-editable-input").focus();
+      });
+		$("ul.textboxlist-bits").live('blur',function(){
+			$(".textboxlist-bit-editable-input").hide();
+      });
+		//输入完成后显示结果
+		$(".textboxlist-bit-editable-input").blur(function(){
+			var tag = $(".textboxlist-bit-editable-input").val();
+			if(tag.length==0)
+			return;
+			var new_tag = '<li class="textboxlist-bit textboxlist-bit-box textboxlist-bit-box-deletable">';
+			new_tag += tag; 
+			new_tag += '<a class="textboxlist-bit-box-deletebutton" href="#"></a></li>';
+			$(new_tag).insertBefore($(".textboxlist-bit-editable"));
+			$(".textboxlist-bit-editable-input").val('');
+			init_tag();
+      });
+		//动态生成的标签中 需要使用live委托事件
+		$("a.textboxlist-bit-box-deletebutton").live('click',function(){
+			$(this).parent().remove();
+      init_tag();
+			});
       });
     </script>
   </body>

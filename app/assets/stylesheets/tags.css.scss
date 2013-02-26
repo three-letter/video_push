@@ -1,3 +1,67 @@
 // Place all the styles related to the tags controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.textboxlist{
+background: none repeat scroll 0 0 white;
+border: 1px solid #CADBEA;
+        border-radius: 8px 8px 8px 8px;
+cursor: text;
+        font-family: microsoft yahei;
+        font-size: 12px;
+        max-height: 120px;
+        overflow-y: auto;
+width: 184px;
+}
+
+.textboxlist-bits {
+margin: 0;
+overflow: hidden;
+padding: 3px 4px 0;
+}
+
+.textboxlist-bit {
+cursor: default;
+display: block;
+float: left;
+       list-style-type: none;
+margin: 0 5px 3px 0;
+padding: 0;
+}
+
+.textboxlist-bit-box {
+background: none repeat scroll 0 0 #DEE7F8;
+border: 1px solid #CAD8F3;
+        border-radius: 9px 9px 9px 9px;
+cursor: default;
+        line-height: 18px;
+padding: 0 5px;
+position: relative;
+}
+.textboxlist-bit-box-deletable {
+  padding-right: 15px;
+}
+
+.textboxlist-bit-editable-input {
+border: 0 none;
+        font-size: 12px;
+height: 16px;
+padding: 2px 0;
+}
+
+.textboxlist-bit-editable {
+border: 1px solid #FFFFFF;
+width: 45px;
+height: 20px;
+}
+
+.textboxlist-bit-box-deletebutton {
+background: url("close.gif") repeat scroll 0 0 transparent;
+display: block;
+         font-size: 1px;
+height: 7px;
+overflow: hidden;
+position: absolute;
+right: 4px;
+top: 6px;
+width: 7px;
+}

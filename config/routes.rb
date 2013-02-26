@@ -14,6 +14,7 @@ VideoPush::Application.routes.draw do
     resources :pushes
   end
   resources :pushes    
+  resources :tags
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
